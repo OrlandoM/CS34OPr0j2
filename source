@@ -2,13 +2,95 @@ extern "C"
 {
 #include "lexer.h"
 }
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+using namespace std;
+
+struct node{
+	int linenum;
+	char value[MAX_TOKEN_LENGTH];
+	token_type type;
+	node *next;
+	node *prev;
+};
 
 int main()
 {
+	int listnum = 0;
+	node *first;
+	node *counter;
+	first = new node;
+	first = (node*) malloc(sizeof(node));
+	//counter = new node;
+	//counter = (node*)malloc(sizeof(node));
+	first->next = 0;
+	first->prev = 0;
+	counter = first;
+
 	t_type = getToken();
-
-	while (t_type != END_OF_FILE && t_typen != ERROR){
-
+	if (t_type == ERROR){
+		cout << "Unrecognized Character in the Input";
 	}
+	else
+	while (t_type != END_OF_FILE){
+		if (t_type == NUM){
+			counter->linenum = line;
+			counter->type = t_type;
+			strcpy_s (counter->value, current_token);
+			counter->next = new node;
+			counter->next = (node*)malloc(sizeof(node));
+			counter->next->prev = counter;
+			counter = counter->next;
+			listnum++;
+			t_type = getToken();
+		}
+		else if (t_type == ID){
+			if (strcmp(current_token, "cse340") == 0){
+				counter->linenum = line;
+				counter->type = t_type;
+				strcpy_s (counter->value, current_token);
+				counter->next = new node;
+				counter->next = (node*)malloc(sizeof(node));
+				counter->next->prev = counter;
+				counter = counter->next;
+				listnum++;
+				t_type = getToken();
+			}
+			else if (strcmp(current_token, "programming") == 0){
+				counter->linenum = line;
+				counter->type = t_type;
+				strcpy_s (counter->value, current_token);
+				counter->next = new node;
+				counter->next = (node*)malloc(sizeof(node));
+				counter->next->prev = counter;
+				counter = counter->next;
+				listnum++;
+				t_type = getToken();
+			}
+			else if(strcmp(current_token, "cse340") == 0){
+				counter->linenum = line;
+				counter->type = t_type;
+				strcpy_s (counter->value, current_token);
+				counter->next = new node;
+				counter->next = (node*)malloc(sizeof(node));
+				counter->next->prev = counter;
+				counter = counter->next;
+				listnum++;
+				t_type = getToken();
+			}
+			else t_type = getToken();
+		}
+		else t_type = getToken();
+	}
+	counter = counter->prev;
+	while (listnum != 0){
+		cout << counter->linenum << " " << counter->type << " " << counter->value << endl;
+		counter = counter->prev;
+		listnum--;
+	}
+
+	cin;
 	return 0;
 }
