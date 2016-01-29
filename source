@@ -1,0 +1,14 @@
+extern "C"
+{
+#include "lexer.h"
+}
+
+int main()
+{
+	t_type = getToken();
+
+	while (t_type != END_OF_FILE && t_typen != ERROR){
+
+	}
+	return 0;
+}
